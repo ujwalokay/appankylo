@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { MapPin, Monitor, Gamepad2, Menu, Bell, ChevronRight } from "lucide-react";
+import { MapPin, Monitor, Gamepad2, Menu, Bell, ChevronRight, Trophy } from "lucide-react";
 import type { Cafe } from "@shared/schema";
 
 export default function CafeList() {
@@ -137,12 +137,14 @@ export default function CafeList() {
             </div>
             <span className="text-xs text-purple-300 font-medium">Home</span>
           </button>
-          <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-games">
-            <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
-              <img src="/figmaAssets/group-291.png" alt="Games" className="w-6 h-6 opacity-50" />
-            </div>
-            <span className="text-xs text-purple-500/50 font-medium">Games</span>
-          </button>
+          <Link href="/tournament">
+            <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-tournament">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
+                <Trophy className="w-6 h-6 text-purple-400" />
+              </div>
+              <span className="text-xs text-purple-500/50 font-medium">Tournament</span>
+            </button>
+          </Link>
           <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-profile">
             <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
               <img src="/figmaAssets/group-293.png" alt="Profile" className="w-6 h-6 opacity-50" />
