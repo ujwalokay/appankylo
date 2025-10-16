@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { MapPin, Monitor, Gamepad2, Menu } from "lucide-react";
+import { MapPin, Monitor, Gamepad2, Menu, Bell, ChevronRight } from "lucide-react";
 import type { Cafe } from "@shared/schema";
 
 export default function CafeList() {
@@ -10,95 +10,116 @@ export default function CafeList() {
 
   if (isLoading) {
     return (
-      <div className="bg-[#1c1a29] min-h-screen flex items-center justify-center">
-        <div className="text-white">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(258,68%,8%)] to-[hsl(258,68%,12%)]">
+        <div className="text-white animate-pulse">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#1c1a29] min-w-[375px] min-h-screen pb-20">
-      <header className="sticky top-0 bg-[#1c1a29] z-10 pb-4">
-        <div className="flex items-center justify-between px-5 pt-11 pb-3">
-          <div className="flex items-center gap-3">
-            <button 
-              className="w-[30px] h-[30px] flex items-center justify-center"
-              data-testid="button-menu"
-            >
-              <Menu className="w-6 h-6 text-white" />
-            </button>
-            <div className="flex items-center gap-2">
-              <img
-                src="/attached_assets/WhatsApp_Image_2025-10-10_at_18.36.58_1fb5438e-removebg-preview_1760599705429.png"
-                alt="Ankylo Gaming"
-                className="w-8 h-8"
-                data-testid="img-logo"
-              />
-              <div>
-                <div className="text-[10px] text-gray-400">dombivli west</div>
-                <div className="text-[11px] font-bold text-white">ANKYLO GAMING</div>
+    <div className="min-h-screen bg-gradient-to-br from-[hsl(258,68%,8%)] to-[hsl(258,68%,12%)] pb-24">
+      {/* Header */}
+      <header className="sticky top-0 z-20 glass-effect border-b border-purple-500/20">
+        <div className="px-5 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <button 
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center hover-glow"
+                data-testid="button-menu"
+              >
+                <Menu className="w-5 h-5 text-white" />
+              </button>
+              <div className="flex items-center gap-3">
+                <img
+                  src="/attached_assets/WhatsApp_Image_2025-10-10_at_18.36.58_1fb5438e-removebg-preview_1760599705429.png"
+                  alt="Ankylo Gaming"
+                  className="w-10 h-10 animate-float"
+                  data-testid="img-logo"
+                />
+                <div>
+                  <div className="text-xs text-purple-300">dombivli west</div>
+                  <div className="text-sm font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    ANKYLO GAMING
+                  </div>
+                </div>
               </div>
             </div>
+            <button className="relative p-2 rounded-xl bg-purple-500/20 hover-glow" data-testid="button-notifications">
+              <Bell className="w-5 h-5 text-purple-300" />
+              <div className="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full animate-glow-pulse" />
+            </button>
           </div>
-          <div className="relative">
-            <img
-              className="w-[27px] h-[27px]"
-              alt="Notifications"
-              src="/figmaAssets/group-7.png"
-              data-testid="img-notifications"
-            />
-            <div className="absolute top-0 right-0 w-[9px] h-[9px] bg-[#eb5757] rounded-full" />
+          
+          <div className="mt-4">
+            <h1 className="text-2xl font-bold text-white mb-1 animate-fade-in" data-testid="text-page-title">
+              Discover Gaming Cafes
+            </h1>
+            <p className="text-purple-300 text-sm">Find your next gaming destination</p>
           </div>
-        </div>
-        
-        <div className="px-5 mt-4">
-          <h1 className="text-white text-2xl font-bold" data-testid="text-page-title">Gaming Cafes Near You</h1>
-          <p className="text-gray-400 text-sm mt-1">Find the perfect spot to game</p>
         </div>
       </header>
 
-      <div className="px-5 mt-6 space-y-4">
-        {cafes?.map((cafe) => (
+      {/* Cafes Grid */}
+      <div className="px-5 mt-6 space-y-5">
+        {cafes?.map((cafe, index) => (
           <Link key={cafe.id} href={`/cafe/${cafe.id}`}>
             <div 
-              className="bg-[#252336] rounded-xl overflow-hidden cursor-pointer hover:bg-[#2d2a42] transition-colors"
+              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-900/40 to-pink-900/20 border border-purple-500/30 hover-glow animate-slide-in-up cursor-pointer"
+              style={{ animationDelay: `${index * 0.1}s` }}
               data-testid={`card-cafe-${cafe.id}`}
             >
-              <div className="relative h-40">
+              {/* Image Section */}
+              <div className="relative h-48 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(258,68%,12%)] via-transparent to-transparent z-10" />
                 <img
                   src={cafe.image}
                   alt={cafe.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <h3 className="text-white font-semibold text-lg" data-testid={`text-cafe-name-${cafe.id}`}>{cafe.name}</h3>
-                  <div className="flex items-center gap-1 text-gray-300 text-xs mt-1">
-                    <MapPin className="w-3 h-3" />
-                    <span data-testid={`text-location-${cafe.id}`}>{cafe.location}</span>
-                    <span className="mx-1">•</span>
-                    <span data-testid={`text-distance-${cafe.id}`}>{cafe.distance}</span>
+                <div className="absolute top-3 right-3 z-20">
+                  <div className="flex items-center gap-1 px-3 py-1 rounded-full glass-effect">
+                    <span className="text-yellow-400 text-lg">★</span>
+                    <span className="text-white font-semibold text-sm" data-testid={`text-rating-${cafe.id}`}>{cafe.rating}</span>
                   </div>
                 </div>
               </div>
               
+              {/* Content Section */}
               <div className="p-4">
-                <div className="flex items-center gap-1 mb-3">
-                  <span className="text-yellow-400">★</span>
-                  <span className="text-white text-sm" data-testid={`text-rating-${cafe.id}`}>{cafe.rating}</span>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <h3 className="text-white font-bold text-lg mb-1 group-hover:text-purple-300 transition-colors" data-testid={`text-cafe-name-${cafe.id}`}>
+                      {cafe.name}
+                    </h3>
+                    <div className="flex items-center gap-2 text-purple-300 text-sm">
+                      <MapPin className="w-3 h-3" />
+                      <span data-testid={`text-location-${cafe.id}`}>{cafe.location}</span>
+                      <span className="text-purple-500">•</span>
+                      <span data-testid={`text-distance-${cafe.id}`}>{cafe.distance}</span>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" />
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Monitor className="w-4 h-4 text-[#4d438a]" />
-                    <span className="text-white" data-testid={`text-pc-availability-${cafe.id}`}>
-                      {cafe.pcAvailable}/{cafe.pcTotal} PC
-                    </span>
+                {/* Availability */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="px-3 py-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Monitor className="w-4 h-4 text-purple-400" />
+                      <span className="text-xs text-purple-300">PC</span>
+                    </div>
+                    <div className="text-white font-semibold" data-testid={`text-pc-availability-${cafe.id}`}>
+                      {cafe.pcAvailable}/{cafe.pcTotal}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Gamepad2 className="w-4 h-4 text-[#4d438a]" />
-                    <span className="text-white" data-testid={`text-ps5-availability-${cafe.id}`}>
-                      {cafe.ps5Available}/{cafe.ps5Total} PS5
-                    </span>
+                  <div className="px-3 py-2 rounded-xl bg-pink-500/10 border border-pink-500/20">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Gamepad2 className="w-4 h-4 text-pink-400" />
+                      <span className="text-xs text-pink-300">PS5</span>
+                    </div>
+                    <div className="text-white font-semibold" data-testid={`text-ps5-availability-${cafe.id}`}>
+                      {cafe.ps5Available}/{cafe.ps5Total}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -107,16 +128,26 @@ export default function CafeList() {
         ))}
       </div>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#1c1a29] border-t border-[#2a2740]">
-        <div className="flex justify-around items-center h-16 max-w-[500px] mx-auto">
-          <button className="flex flex-col items-center gap-1 text-[#4d438a]" data-testid="button-nav-home">
-            <img src="/figmaAssets/group-304.png" alt="Home" className="w-6 h-6" />
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-20 glass-effect border-t border-purple-500/20">
+        <div className="flex justify-around items-center h-20 max-w-[500px] mx-auto px-5">
+          <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-home">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center transition-transform group-hover:scale-110">
+              <img src="/figmaAssets/group-304.png" alt="Home" className="w-6 h-6" />
+            </div>
+            <span className="text-xs text-purple-300 font-medium">Home</span>
           </button>
-          <button className="flex flex-col items-center gap-1 text-gray-500" data-testid="button-nav-games">
-            <img src="/figmaAssets/group-291.png" alt="Games" className="w-6 h-6" />
+          <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-games">
+            <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
+              <img src="/figmaAssets/group-291.png" alt="Games" className="w-6 h-6 opacity-50" />
+            </div>
+            <span className="text-xs text-purple-500/50 font-medium">Games</span>
           </button>
-          <button className="flex flex-col items-center gap-1 text-gray-500" data-testid="button-nav-profile">
-            <img src="/figmaAssets/group-293.png" alt="Profile" className="w-6 h-6" />
+          <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-profile">
+            <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
+              <img src="/figmaAssets/group-293.png" alt="Profile" className="w-6 h-6 opacity-50" />
+            </div>
+            <span className="text-xs text-purple-500/50 font-medium">Profile</span>
           </button>
         </div>
       </nav>
