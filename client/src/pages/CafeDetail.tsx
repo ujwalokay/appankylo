@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, MapPin, Monitor, Gamepad2, Star, Phone, Map, Sparkles } from "lucide-react";
+import { ArrowLeft, MapPin, Monitor, Gamepad2, Star, Phone, Map, Sparkles, Glasses, Car } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import type { Cafe } from "@shared/schema";
 
@@ -109,6 +109,60 @@ export default function CafeDetail() {
               {cafe.ps5Available > 0 ? 'Available Now' : 'Fully Booked'}
             </div>
           </div>
+
+          {cafe.vrTotal && cafe.vrTotal > 0 && (() => {
+            const vrPercentage = (cafe.vrAvailable! / cafe.vrTotal) * 100;
+            return (
+              <div className="glass-effect rounded-2xl p-4 border border-blue-500/30 hover-glow animate-slide-in-up" style={{ animationDelay: '0.3s' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                    <Glasses className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <span className="text-white font-semibold">VR</span>
+                </div>
+                <div className="text-2xl font-bold text-white mb-2" data-testid="text-vr-count">
+                  {cafe.vrAvailable}/{cafe.vrTotal}
+                </div>
+                <div className="w-full bg-blue-900/40 rounded-full h-2 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${vrPercentage}%` }}
+                    data-testid="progress-vr"
+                  />
+                </div>
+                <div className="mt-2 text-xs text-blue-300">
+                  {cafe.vrAvailable! > 0 ? 'Available Now' : 'Fully Booked'}
+                </div>
+              </div>
+            );
+          })()}
+
+          {cafe.carSimTotal && cafe.carSimTotal > 0 && (() => {
+            const carSimPercentage = (cafe.carSimAvailable! / cafe.carSimTotal) * 100;
+            return (
+              <div className="glass-effect rounded-2xl p-4 border border-orange-500/30 hover-glow animate-slide-in-up" style={{ animationDelay: '0.4s' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+                    <Car className="w-5 h-5 text-orange-400" />
+                  </div>
+                  <span className="text-white font-semibold">Racing Sim</span>
+                </div>
+                <div className="text-2xl font-bold text-white mb-2" data-testid="text-carsim-count">
+                  {cafe.carSimAvailable}/{cafe.carSimTotal}
+                </div>
+                <div className="w-full bg-orange-900/40 rounded-full h-2 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${carSimPercentage}%` }}
+                    data-testid="progress-carsim"
+                  />
+                </div>
+                <div className="mt-2 text-xs text-orange-300">
+                  {cafe.carSimAvailable! > 0 ? 'Available Now' : 'Fully Booked'}
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* About Section */}

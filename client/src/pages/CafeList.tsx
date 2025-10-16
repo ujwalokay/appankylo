@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { MapPin, Monitor, Gamepad2, Menu, Bell, ChevronRight, Trophy, Percent } from "lucide-react";
+import { MapPin, Monitor, Gamepad2, Menu, Bell, ChevronRight, Trophy, Percent, Glasses, Car } from "lucide-react";
 import type { Cafe } from "@shared/schema";
 
 export default function CafeList() {
@@ -121,6 +121,28 @@ export default function CafeList() {
                       {cafe.ps5Available}/{cafe.ps5Total}
                     </div>
                   </div>
+                  {cafe.vrTotal && cafe.vrTotal > 0 && (
+                    <div className="px-3 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Glasses className="w-4 h-4 text-blue-400" />
+                        <span className="text-xs text-blue-300">VR</span>
+                      </div>
+                      <div className="text-white font-semibold" data-testid={`text-vr-availability-${cafe.id}`}>
+                        {cafe.vrAvailable}/{cafe.vrTotal}
+                      </div>
+                    </div>
+                  )}
+                  {cafe.carSimTotal && cafe.carSimTotal > 0 && (
+                    <div className="px-3 py-2 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Car className="w-4 h-4 text-orange-400" />
+                        <span className="text-xs text-orange-300">Racing Sim</span>
+                      </div>
+                      <div className="text-white font-semibold" data-testid={`text-carsim-availability-${cafe.id}`}>
+                        {cafe.carSimAvailable}/{cafe.carSimTotal}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
