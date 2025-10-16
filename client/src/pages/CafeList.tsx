@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { MapPin, Monitor, Gamepad2 } from "lucide-react";
+import { MapPin, Monitor, Gamepad2, Menu } from "lucide-react";
 import type { Cafe } from "@shared/schema";
 
 export default function CafeList() {
@@ -21,15 +21,23 @@ export default function CafeList() {
       <header className="sticky top-0 bg-[#1c1a29] z-10 pb-4">
         <div className="flex items-center justify-between px-5 pt-11 pb-3">
           <div className="flex items-center gap-3">
-            <img
-              className="w-[30px] h-[30px] rounded-full object-cover"
-              alt="Profile"
-              src="/figmaAssets/ellipse-1.png"
-              data-testid="img-profile"
-            />
-            <div>
-              <div className="text-[10px] text-gray-400">dombivli west</div>
-              <div className="text-[11px] font-bold text-white">GAMING YATRA</div>
+            <button 
+              className="w-[30px] h-[30px] flex items-center justify-center"
+              data-testid="button-menu"
+            >
+              <Menu className="w-6 h-6 text-white" />
+            </button>
+            <div className="flex items-center gap-2">
+              <img
+                src="/attached_assets/WhatsApp_Image_2025-10-10_at_18.36.58_1fb5438e-removebg-preview_1760599705429.png"
+                alt="Ankylo Gaming"
+                className="w-8 h-8"
+                data-testid="img-logo"
+              />
+              <div>
+                <div className="text-[10px] text-gray-400">dombivli west</div>
+                <div className="text-[11px] font-bold text-white">ANKYLO GAMING</div>
+              </div>
             </div>
           </div>
           <div className="relative">
@@ -74,12 +82,9 @@ export default function CafeList() {
               </div>
               
               <div className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1">
-                    <span className="text-yellow-400">★</span>
-                    <span className="text-white text-sm" data-testid={`text-rating-${cafe.id}`}>{cafe.rating}</span>
-                  </div>
-                  <div className="text-[#4d438a] font-semibold" data-testid={`text-price-${cafe.id}`}>₹{cafe.pricePerHour}/hr</div>
+                <div className="flex items-center gap-1 mb-3">
+                  <span className="text-yellow-400">★</span>
+                  <span className="text-white text-sm" data-testid={`text-rating-${cafe.id}`}>{cafe.rating}</span>
                 </div>
 
                 <div className="flex gap-4">

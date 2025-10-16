@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, MapPin, Monitor, Gamepad2, Star, Clock } from "lucide-react";
+import { ArrowLeft, MapPin, Monitor, Gamepad2, Star, Phone, Map } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import type { Cafe } from "@shared/schema";
 
 export default function CafeDetail() {
@@ -99,16 +100,48 @@ export default function CafeDetail() {
         </div>
 
         <div className="bg-[#252336] rounded-xl p-4 mb-4">
-          <div className="flex items-center gap-2 mb-3">
-            <Clock className="w-5 h-5 text-[#4d438a]" />
-            <span className="text-white font-semibold">Pricing</span>
-          </div>
-          <div className="text-2xl text-[#4d438a] font-bold" data-testid="text-price">₹{cafe.pricePerHour}/hour</div>
+          <h3 className="text-white font-semibold mb-2">About</h3>
+          <p className="text-gray-400 text-sm" data-testid="text-description">{cafe.description}</p>
         </div>
 
         <div className="bg-[#252336] rounded-xl p-4 mb-4">
-          <h3 className="text-white font-semibold mb-2">About</h3>
-          <p className="text-gray-400 text-sm" data-testid="text-description">{cafe.description}</p>
+          <h3 className="text-white font-semibold mb-3">Available Games</h3>
+          
+          <div className="mb-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Monitor className="w-4 h-4 text-[#4d438a]" />
+              <span className="text-gray-300 text-sm font-semibold">PC Games</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {cafe.pcGames.map((game, index) => (
+                <span 
+                  key={index}
+                  className="px-3 py-1 bg-[#1c1a29] text-gray-300 rounded-full text-xs"
+                  data-testid={`text-pc-game-${index}`}
+                >
+                  {game}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Gamepad2 className="w-4 h-4 text-[#4d438a]" />
+              <span className="text-gray-300 text-sm font-semibold">PS5 Games</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {cafe.ps5Games.map((game, index) => (
+                <span 
+                  key={index}
+                  className="px-3 py-1 bg-[#1c1a29] text-gray-300 rounded-full text-xs"
+                  data-testid={`text-ps5-game-${index}`}
+                >
+                  {game}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="bg-[#252336] rounded-xl p-4 mb-6">
@@ -126,12 +159,35 @@ export default function CafeDetail() {
           </div>
         </div>
 
-        <button 
-          className="w-full bg-[#4d438a] text-white font-semibold py-4 rounded-xl mb-6 hover:bg-[#5d4f9a] transition-colors"
-          data-testid="button-book"
-        >
-          Book Now
-        </button>
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <a 
+            href={`tel:${cafe.phone}`}
+            className="bg-[#4d438a] text-white font-semibold py-4 rounded-xl hover:bg-[#5d4f9a] transition-colors flex items-center justify-center gap-2"
+            data-testid="button-call"
+          >
+            <Phone className="w-5 h-5" />
+            Call
+          </a>
+          <a 
+            href={`https://wa.me/${cafe.whatsapp.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#25D366] text-white font-semibold py-4 rounded-xl hover:bg-[#20bd5a] transition-colors flex items-center justify-center gap-2"
+            data-testid="button-whatsapp"
+          >
+            <SiWhatsapp className="w-5 h-5" />
+          </a>
+          <a 
+            href={`https://www.google.com/maps?q=${cafe.latitude},${cafe.longitude}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#4d438a] text-white font-semibold py-4 rounded-xl hover:bg-[#5d4f9a] transition-colors flex items-center justify-center gap-2"
+            data-testid="button-map"
+          >
+            <Map className="w-5 h-5" />
+            Map
+          </a>
+        </div>
       </div>
     </div>
   );

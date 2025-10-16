@@ -17,6 +17,12 @@ export const cafes = pgTable("cafes", {
   pricePerHour: integer("price_per_hour").notNull(),
   description: text("description").notNull(),
   amenities: text("amenities").array().notNull(),
+  phone: text("phone").notNull(),
+  whatsapp: text("whatsapp").notNull(),
+  latitude: real("latitude").notNull(),
+  longitude: real("longitude").notNull(),
+  pcGames: text("pc_games").array().notNull(),
+  ps5Games: text("ps5_games").array().notNull(),
 });
 
 export const insertCafeSchema = createInsertSchema(cafes).omit({ id: true });
