@@ -3,11 +3,18 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  app.get("/api/cafes", async (_req, res) => {
+    const cafes = await storage.getCafes();
+    res.json(cafes);
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  app.get("/api/cafes/:id", async (req, res) => {
+    const cafe = await storage.getCafe(req.params.id);
+    if (!cafe) {
+      return res.status(404).json({ message: "Cafe not found" });
+    }
+    res.json(cafe);
+  });
 
   const httpServer = createServer(app);
 
