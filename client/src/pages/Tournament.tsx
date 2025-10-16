@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Trophy, Calendar, Users, Award, ChevronRight, ArrowLeft, MapPin, Clock, BookOpen, Shield, Info } from "lucide-react";
+import { Trophy, Calendar, Users, Award, ChevronRight, ArrowLeft, MapPin, Clock, BookOpen, Shield, Info, Percent } from "lucide-react";
 import { useState } from "react";
 import {
   Dialog,
@@ -226,12 +226,14 @@ export default function Tournament() {
             </div>
             <span className="text-xs text-purple-300 font-medium">Tournament</span>
           </button>
-          <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-profile">
-            <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
-              <img src="/figmaAssets/group-293.png" alt="Profile" className="w-6 h-6 opacity-50" />
-            </div>
-            <span className="text-xs text-purple-500/50 font-medium">Profile</span>
-          </button>
+          <Link href="/offers">
+            <button className="flex flex-col items-center gap-1 group" data-testid="button-nav-offers">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center transition-all group-hover:bg-purple-500/30">
+                <Percent className="w-6 h-6 text-purple-400" />
+              </div>
+              <span className="text-xs text-purple-500/50 font-medium">Offers</span>
+            </button>
+          </Link>
         </div>
       </nav>
 

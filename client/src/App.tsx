@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import CafeList from "@/pages/CafeList";
 import CafeDetail from "@/pages/CafeDetail";
 import Tournament from "@/pages/Tournament";
+import Offers from "@/pages/Offers";
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
       <Route path="/" component={CafeList} />
       <Route path="/cafe/:id" component={CafeDetail} />
       <Route path="/tournament" component={Tournament} />
+      <Route path="/offers" component={Offers} />
       <Route component={NotFound} />
     </Switch>
   );
